@@ -7,6 +7,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,6 +20,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,11 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         new JsonTask().execute("https://wwwlab.iit.his.se/brom/kurser/mobilprog/dbservice/admin/getdataasjson.php?type=brom");
-
-
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -77,6 +78,21 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String json) {
             Log.d("MainActivity -->", json);
+
+            Gson gson = new Gson();
+            Mountain[] mountainList = gson.fromJson(json, Mountain[].class);
+
+            for (int i = 0; i < mountainList.length; i++) {
+                Log.d("MainActivity -->", "Hittade ett berg: " + mountainList[i]);
+            }
+
+            mountains = new ArrayList<>(Arrays.asList(mountainList));
+
+            adapter = new ArrayAdapter<Mountain>(getApplicationContext(), R.layout.listview_item, R.id.item, mountains);
+
+            ListView listView = findViewById(R.id.list_view);
+            listView.setAdapter(adapter);
+
         }
     }
 

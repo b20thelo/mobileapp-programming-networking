@@ -27,4 +27,9 @@ public class Mountain {
     private int size;
     private int cost;
     private Auxdata auxdata;
+
+    @Override
+    public String toString() {
+        return name + " " + company + " " + location + " " +  category + " " + size + " " + auxdata.toString() ;
+    }
 }
