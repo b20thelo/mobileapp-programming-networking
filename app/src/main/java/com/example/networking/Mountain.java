@@ -30,6 +30,14 @@ public class Mountain {
 
     @Override
     public String toString() {
-        return name + " " + company + " " + location + " " +  category + " " + size + " " + auxdata.toString() ;
+        return name;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public String getLocation() {
+        return location;
     }
 }

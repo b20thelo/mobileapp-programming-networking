@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -93,7 +95,14 @@ public class MainActivity extends AppCompatActivity {
             ListView listView = findViewById(R.id.list_view);
             listView.setAdapter(adapter);
 
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(MainActivity.this,  "You clicked on " + mountains.get(position).toString() +
+                    " located in " + mountains.get(position).getLocation() + " with a height of " + mountains.get(position).getSize() +
+                    "meters above sea level.", Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
-
 }
